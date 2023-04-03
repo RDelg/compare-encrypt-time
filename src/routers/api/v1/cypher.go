@@ -9,13 +9,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RemoteFunctionAdapter
-func RemoteFunctionAdapter(c *gin.Context) {
+func parseMessage(c *gin.Context) models.Message {
 	var message models.Message
 	if err := c.BindJSON(&message); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
 	}
+	return message
+}
+
+// RemoteFunctionAdapter
+func RemoteFunctionAdapter(c *gin.Context) {
+	message := parseMessage(c)
 	if message.Context["action"] == "encrypt" {
 		encrypt(message, c)
 	} else if message.Context["action"] == "decrypt" {
@@ -73,21 +77,13 @@ func decrypt(message models.Message, c *gin.Context) {
 
 // Decrypt decrypts a message
 func Decrypt(c *gin.Context) {
-	var message models.Message
-	if err := c.BindJSON(&message); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	message := parseMessage(c)
 	decrypt(message, c)
 
 }
 
 // Encrypt
 func Encrypt(c *gin.Context) {
-	var message models.Message
-	if err := c.BindJSON(&message); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	message := parseMessage(c)
 	encrypt(message, c)
 }
