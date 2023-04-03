@@ -6,6 +6,7 @@ import (
 
 	"github.com/RDelg/compare-encrypt-time/src/models"
 	"github.com/RDelg/compare-encrypt-time/src/services"
+	setting "github.com/RDelg/compare-encrypt-time/src/settings"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,7 +32,8 @@ func RemoteFunctionAdapter(c *gin.Context) {
 }
 
 func encrypt(message models.Message, c *gin.Context) {
-	svc := services.NewCypherService("HJkPmTz+uY7wd0p1+w//DABgbvPq9/230RwEG2sJ9mo=", "AAAAAAAAAAAAAAAAAAAAAA==")
+
+	svc := services.NewCypherService(setting.AppSetting.CypherSetting.Key, setting.AppSetting.CypherSetting.Iv)
 
 	var wg sync.WaitGroup
 	results := make([]string, len(message.Calls))
@@ -53,7 +55,7 @@ func encrypt(message models.Message, c *gin.Context) {
 }
 
 func decrypt(message models.Message, c *gin.Context) {
-	svc := services.NewCypherService("HJkPmTz+uY7wd0p1+w//DABgbvPq9/230RwEG2sJ9mo=", "AAAAAAAAAAAAAAAAAAAAAA==")
+	svc := services.NewCypherService(setting.AppSetting.CypherSetting.Key, setting.AppSetting.CypherSetting.Iv)
 
 	var wg sync.WaitGroup
 	results := make([]string, len(message.Calls))

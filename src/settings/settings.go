@@ -12,8 +12,8 @@ type App struct {
 		HttpPort int    `env:"PORT,default=8000"`
 	}
 	CypherSetting struct {
-		CypherKey string `env:"CYPHER_KEY,required=true"`
-		CypherIv  string `env:"CYPHER_IV,required=true"`
+		Key string `env:"CYPHER_KEY,required=true"`
+		Iv  string `env:"CYPHER_IV,required=true"`
 	}
 }
 
