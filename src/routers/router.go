@@ -15,7 +15,7 @@ func InitRouter() *gin.Engine {
 	{
 		apiv1.POST("/", v1.RemoteFunctionAdapter)
 		apiv1.POST("/encrypt", v1.Encrypt)
-		apiv1.POST("/decrypt", v1.Encrypt)
+		apiv1.POST("/decrypt", v1.Decrypt)
 	}
 
 	return r
