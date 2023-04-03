@@ -51,7 +51,10 @@ func encrypt(message models.Message, c *gin.Context) {
 		}(i, call)
 	}
 	wg.Wait()
-	c.JSON(http.StatusOK, gin.H{"data": results})
+	bigQueryRemoteFunctionResponse := models.BigQueryRemoteFunctionResponse{
+		Replies: results,
+	}
+	c.JSON(http.StatusOK, bigQueryRemoteFunctionResponse)
 }
 
 func decrypt(message models.Message, c *gin.Context) {
@@ -73,7 +76,10 @@ func decrypt(message models.Message, c *gin.Context) {
 		}(i, call)
 	}
 	wg.Wait()
-	c.JSON(http.StatusOK, gin.H{"data": results})
+	bigQueryRemoteFunctionResponse := models.BigQueryRemoteFunctionResponse{
+		Replies: results,
+	}
+	c.JSON(http.StatusOK, bigQueryRemoteFunctionResponse)
 
 }
 
