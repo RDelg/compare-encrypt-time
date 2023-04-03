@@ -9,8 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// RemoveFunctionAdapter
-func RemoveFunctionAdapter(c *gin.Context) {
+// RemoteFunctionAdapter
+func RemoteFunctionAdapter(c *gin.Context) {
 	var message models.Message
 	if err := c.BindJSON(&message); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
